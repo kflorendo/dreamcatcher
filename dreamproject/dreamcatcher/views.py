@@ -13,9 +13,11 @@ from dreamcatcher.models import *
 def landing(request):
     return render(request, 'dreamcatcher/landing.html', {})
 
+@login_required
 def entry(request):
     return render(request, 'dreamcatcher/entry.html', {})
 
+@login_required
 def home(request):
     return render(request, 'dreamcatcher/home.html', {})
 
@@ -73,7 +75,7 @@ def register_action(request):
     login(request, new_user)
 
     # Create user profile
-    new_profile = Profile(user=new_user, bio="", picture="", content_type="")
+    new_profile = Profile(user=new_user, picture="", content_type="")
     new_profile.save()
 
     return redirect(reverse('home'))
