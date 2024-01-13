@@ -79,3 +79,7 @@ def register_action(request):
     new_profile.save()
 
     return redirect(reverse('home'))
+
+def logout_action(request):
+    logout(request)
+    return redirect(reverse('login'))
