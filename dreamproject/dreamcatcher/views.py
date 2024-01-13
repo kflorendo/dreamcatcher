@@ -1,3 +1,4 @@
+from io import BytesIO
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone, dateformat
@@ -10,9 +11,12 @@ from dreamcatcher.forms import LoginForm, RegisterForm
 
 from dreamcatcher.models import *
 from dreamcatcher.functions.get_dream_question import *
+from dreamcatcher.functions.generate_dream_image import *
+
+from django.core.files.base import ContentFile
 
 
-HYDRATION = 50
+HYDRATION = 10
 
 from dreamcatcher.functions.get_dream_analysis import *
 
@@ -103,6 +107,21 @@ def process_entry(request):
         sequence.interpretation = interpretation
         sequence.save()
 
+        # generate image from the complete_dream_text
+        image_data = generate_dream_image(complete_dream_text)
+
+        # Convert PIL JpegImageFile to a BytesIO object
+        image_io = BytesIO()
+        image_data.save(image_io, format="JPEG")
+        image_io.seek(0)
+
+        # Create a Django ContentFile from the BytesIO object
+        image_file = ContentFile(image_io.read(), name="dream_image.jpg")
+
+        # Save the image to the sequence model
+        sequence.image.save("dream_image.jpg", image_file, save=True)
+        sequence.save()
+
         return redirect("home")
 
 
@@ -110,18 +129,27 @@ def process_entry(request):
 def home(request):
     return render(request, "dreamcatcher/home.html", {})
 
+
 @login_required
 def dream_list(request):
     context = {}
-    dream_list = DreamSequence.objects.all().filter(user=request.user).order_by('-date_time')
+    dream_list = (
+        DreamSequence.objects.all().filter(user=request.user).order_by("-date_time")
+    )
     dreams = []
     for dream in dream_list:
         # print(dream.dreamchunk_set.all()[0].text)
         preview_text = dream.dreamchunk_set.all()[0].text
-        dreams.append({'title': dream.title, 'date': dream.date_time.strftime('%Y.%m.%d %H:%M'), 'preview': preview_text})
+        dreams.append(
+            {
+                "title": dream.title,
+                "date": dream.date_time.strftime("%Y.%m.%d %H:%M"),
+                "preview": preview_text,
+            }
+        )
         # previews.append(dream.dreamchunk_set.all()[0].text)
-    context['dreams'] = dreams
-    return render(request, 'dreamcatcher/dream-list.html', context)
+    context["dreams"] = dreams
+    return render(request, "dreamcatcher/dream-list.html", context)
 
 
 @login_required
