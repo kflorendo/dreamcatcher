@@ -27,4 +27,5 @@ urlpatterns = [
     path('register', views.register_action, name='register'),
     path('logout', views.logout_action, name='logout'),
     path('process-entry', views.process_entry, name='process-entry'),
+    path('dream-list', views.dream_list, name='dream-list')
 ]

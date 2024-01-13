@@ -68,6 +68,10 @@ def process_entry(request):
 def home(request):
     return render(request, 'dreamcatcher/home.html', {})
 
+@login_required
+def dream_list(request):
+    return render(request, 'dreamcatcher/dream-list.html', {})
+
 def login_action(request):
     context = {}
 
