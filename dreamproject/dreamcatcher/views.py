@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.utils import timezone, dateformat
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -16,6 +17,20 @@ def landing(request):
 @login_required
 def entry(request):
     return render(request, 'dreamcatcher/entry.html', {})
+
+@login_required
+def add_entry(request):
+    # Adds the new item to the database if the request parameter is present
+    if 'dream-text-input' not in request.POST or not request.POST['dream-text-input']:
+        # If error, redirect to global stream with error message
+        #TODO: display error
+        return render(request, 'dreamcatcher/home.html', {})
+    formatted_date = dateformat.format(timezone.now(), 'Y-m-d H:i:s')
+    new_sequence = DreamSequence(user=request.user, title=f'My Dream {formatted_date}', interpretation='', sentiment='', date_time=timezone.now())
+    new_sequence.save()
+    new_chunk = DreamChunk(sequence=new_sequence, text=request.POST['dream-text-input'], image='', content_type='')
+    new_chunk.save()
+    return redirect('home')
 
 @login_required
 def home(request):
