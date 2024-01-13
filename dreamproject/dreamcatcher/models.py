@@ -10,6 +10,7 @@ class DreamSequence(models.Model):
     interpretation = models.TextField()
     sentiment = models.CharField(max_length=50)
     image = models.FileField(blank=True)
+    content_type = models.CharField(max_length=50, default="image/jpeg")
 
 
 class DreamChunk(models.Model):
