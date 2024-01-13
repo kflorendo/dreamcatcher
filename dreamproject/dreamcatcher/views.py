@@ -132,7 +132,7 @@ def view_related_dreams(request, id):
         dream = DreamSequence.objects.get(pk=id)
         preview_text = dream.dreamchunk_set.all()[0].text
         dreams.append({'title': dream.title, 'date': dream.date_time.strftime(
-            '%Y.%m.%d %H:%M'), 'preview': preview_text})
+            '%Y.%m.%d %H:%M'), 'preview': preview_text, "id": id})
 
     return render(request, 'dreamcatcher/dream_display_similar.html', {"dreams": dreams, "dream": main_dream})
 
