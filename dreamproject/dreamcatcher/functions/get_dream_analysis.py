@@ -3,7 +3,7 @@ import json
 
 
 def get_dream_analysis(dream_text: str):
-    api_key = "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"
+    api_key = "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"
     openai.api_key = api_key
 
     prompt = f"Interpret this dream: {dream_text}"
