@@ -1,10 +1,13 @@
 import openai
 import json
+from dotenv import load_dotenv
+import os
 
 
 def get_dream_analysis(dream_text: str):
-    api_key = "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"
-    openai.api_key = api_key
+    load_dotenv()
+    OPENAI_KEY = os.getenv('OPENAI_KEY')
+    openai.api_key = OPENAI_KEY
 
     prompt = f"Interpret this dream: {dream_text}"
 

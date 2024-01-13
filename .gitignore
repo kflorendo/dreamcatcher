@@ -4,3 +4,6 @@ migrations
 .DS_Store
 .idea
 media
+
+venv
+.env
