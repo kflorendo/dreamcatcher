@@ -70,7 +70,16 @@ def home(request):
 
 @login_required
 def dream_list(request):
-    return render(request, 'dreamcatcher/dream-list.html', {})
+    context = {}
+    dream_list = DreamSequence.objects.all().filter(user=request.user).order_by('-date_time')
+    dreams = []
+    for dream in dream_list:
+        # print(dream.dreamchunk_set.all()[0].text)
+        preview_text = dream.dreamchunk_set.all()[0].text
+        dreams.append({'title': dream.title, 'date': dream.date_time.strftime('%Y.%m.%d %H:%M'), 'preview': preview_text})
+        # previews.append(dream.dreamchunk_set.all()[0].text)
+    context['dreams'] = dreams
+    return render(request, 'dreamcatcher/dream-list.html', context)
 
 def login_action(request):
     context = {}

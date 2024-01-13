@@ -7,36 +7,3 @@ html, body {
     border-top: 1px solid #fff;
     width: 100%;
 }
-
-.post-items {
-    display: flex;
-    flex-direction: column;
-}
-
-.post-items .post-header{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.post-items .post-item {
-    font-family: monospace;
-    color: #fff;
-}
-
-.post-items .post-item .post-title {
-    color: #fff;
-}
-
-.post-items .post-item .post-date {
-    color: #cbcbcb;
-    margin-left: 10px;
-}
-
-.post-items .post-item a {
-    margin-left: auto;
-}
-
-.post-items .post-item .post-text {
-    color: #cbcbcb;
-}
