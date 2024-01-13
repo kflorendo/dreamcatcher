@@ -1,4 +1,4 @@
-.new-dream {
+.base {
     background-color: #131313;
     display: flex;
     flex-direction: row;
@@ -6,31 +6,36 @@
     width: 100%;
     height: 100%;
   }
-  
-  .new-dream .div {
-    background-color: #131313;
-    overflow: hidden;
-    width: 393px;
-    height: 852px;
-    position: relative;
+
+  .base .content {
+    flex-grow: 1;
   }
   
-  .new-dream .overlap-group {
-    position: absolute;
-    width: 393px;
-    height: 60px;
-    top: 0;
-    left: 0;
+  .base .div {
+    background-color: #131313;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .base .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* position: absolute; */
+    width: 100%;
+    height: 8%;
     background-color: #111111;
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-color: #ffffff;
   }
   
-  .new-dream .text-wrapper {
+  .base .text-wrapper {
     position: absolute;
-    top: 18px;
-    left: 157px;
     font-family: "Didot-Italic", Helvetica;
     font-weight: 400;
     font-style: italic;
@@ -40,13 +45,13 @@
     line-height: normal;
   }
   
-  .new-dream .p {
+  .base .p {
     position: absolute;
     width: 292px;
     height: 79px;
     top: 136px;
     left: 48px;
-    font-family: "Inconsolata-Regular", Helvetica;
+    font-family: monospace;
     font-weight: 400;
     color: #ffffff;
     font-size: 24px;
@@ -55,47 +60,43 @@
     line-height: 24px;
   }
   
-  .new-dream .mobile-nav {
-    position: absolute;
-    width: 394px;
-    height: 69px;
-    top: 783px;
+  .base .nav {
+    /* position: absolute; */
+    bottom: 0;
     left: 0;
+    width: 100%;
+    height: 10%;
     background-color: var(--surface);
+    display: flex;
   }
   
-  .new-dream .single-tab {
-    position: absolute;
-    width: 131px;
-    height: 69px;
-    top: 0;
-    left: 131px;
+  .base .single-tab {
+    flex-grow: 1;
     background-color: #231f20;
     border-top-width: 2px;
     border-top-style: solid;
     border-color: var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
-  .new-dream .icon-and-text {
+  .base .icon-and-text {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
-    position: relative;
-    top: 15px;
-    left: 47px;
   }
   
-  .new-dream .img {
+  .base .img {
     position: relative;
     width: 24px;
     height: 24px;
   }
   
-  .new-dream .text {
+  .base .text {
     position: relative;
     width: fit-content;
-    font-family: "Inconsolata-Regular", Helvetica;
+    font-family: monospace;
     font-weight: 400;
     color: #ffffff;
     font-size: 12px;
@@ -105,9 +106,9 @@
     white-space: nowrap;
   }
   
-  .new-dream .icon-and-text-wrapper {
+  .base .icon-and-text-wrapper {
     left: 0;
-    border-color: #bd9eff;
+    /* border-color: #bd9eff; */
     position: absolute;
     width: 131px;
     height: 69px;
@@ -117,7 +118,7 @@
     border-top-style: solid;
   }
   
-  .new-dream .icon-and-text-2 {
+  .base .icon-and-text-2 {
     flex-direction: column;
     gap: 2px;
     left: 53px;
@@ -127,20 +128,20 @@
     top: 15px;
   }
   
-  .new-dream .text-2 {
-    color: #bd9eff;
+  .base .text-2 {
+    color: #ffffff;
     font-size: 12px;
     text-align: center;
     line-height: 14px;
     position: relative;
     width: fit-content;
-    font-family: "Inconsolata-Regular", Helvetica;
+    font-family: monospace;
     font-weight: 400;
     letter-spacing: 0;
     white-space: nowrap;
   }
   
-  .new-dream .div-wrapper {
+  .base .div-wrapper {
     left: 263px;
     border-color: var(--border-subtle);
     position: absolute;
@@ -152,7 +153,7 @@
     border-top-style: solid;
   }
   
-  .new-dream .icon-and-text-3 {
+  .base .icon-and-text-3 {
     flex-direction: column;
     gap: 2px;
     left: 44px;
@@ -162,7 +163,7 @@
     top: 15px;
   }
   
-  .new-dream .rectangle {
+  .base .rectangle {
     position: absolute;
     width: 292px;
     height: 183px;
@@ -172,7 +173,7 @@
     border-color: #ffffff;
   }
   
-  .new-dream .left-button {
+  .base .left-button {
     position: absolute;
     width: 144px;
     height: 48px;
@@ -185,7 +186,7 @@
     border-color: #383838;
   }
   
-  .new-dream .icon-and-text-4 {
+  .base .icon-and-text-4 {
     gap: 8px;
     left: 52px;
     display: inline-flex;
@@ -194,14 +195,14 @@
     top: 15px;
   }
   
-  .new-dream .text-3 {
+  .base .text-3 {
     margin-top: -1px;
     color: #ffffff;
     font-size: 16px;
     line-height: 18px;
     position: relative;
     width: fit-content;
-    font-family: "Inconsolata-Regular", Helvetica;
+    font-family: monospace;
     font-weight: 400;
     letter-spacing: 0;
     white-space: nowrap;

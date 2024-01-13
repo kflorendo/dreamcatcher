@@ -4,5 +4,5 @@ from django.shortcuts import render
 def landing(request):
     return render(request, 'dreamcatcher/landing.html', {})
 
-def new_dream(request):
-    return render(request, 'dreamcatcher/new-dream.html', {})
+def entry(request):
+    return render(request, 'dreamcatcher/entry.html', {})

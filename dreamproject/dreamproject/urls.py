@@ -21,5 +21,5 @@ from dreamcatcher import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.landing),
-    path('newdream', views.new_dream)
+    path('entry', views.entry)
 ]
