@@ -1,7 +1,15 @@
 {% extends "dreamcatcher/base.html" %} {% block content %}
-<div>
+<div class="dream-display">
+  <div class="dream-title">{{sequence.title}}</div>
+  <div class="dream-nav">
+    <a class="dream-nav-link selected" href="{% url 'view-dream-sequence' sequence.pk %}">Dream</a>
+    <span>|</span>
+    <a class="dream-nav-link" href="{% url 'view-dream-analysis' sequence.pk %}">Analysis</a>
+    <span>|</span>
+    <a class="dream-nav-link" href="{% url 'view-dream-sequence' sequence.pk %}">Similar</a>
+  </div>
   {% for chunk in dreamchunks %} 
-  <p>{{chunk.text}}</p>
+  <div class="dream-text">{{chunk.text}}</div>
   {% endfor %}
 </div>
 {% endblock %}
