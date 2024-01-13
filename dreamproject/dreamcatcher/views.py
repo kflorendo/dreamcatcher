@@ -1,3 +1,4 @@
+from dreamcatcher.functions.get_dream_analysis import *
 from io import BytesIO
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -19,9 +20,9 @@ from dreamcatcher.functions.generate_dream_image import *
 from django.core.files.base import ContentFile
 
 
-HYDRATION = 10
+from dreamcatcher.functions.dream_embeddings import embed_and_store_dream, get_similar_dream_ids
 
-from dreamcatcher.functions.get_dream_analysis import *
+HYDRATION = 10
 
 
 # Create your views here.
@@ -126,6 +127,9 @@ def process_entry(request):
         # sequence.content_type = ssequence.image.content_type
         sequence.save()
 
+        embed_and_store_dream(str(sequence.id), complete_dream_text)
+        print("embedded dream", sequence.id)
+
         return redirect("home")
 
 
@@ -137,20 +141,14 @@ def home(request):
 @login_required
 def dream_list(request):
     context = {}
-    dream_list = (
-        DreamSequence.objects.all().filter(user=request.user).order_by("-date_time")
-    )
+    dream_list = DreamSequence.objects.all().filter(
+        user=request.user).order_by('-date_time')
     dreams = []
     for dream in dream_list:
         # print(dream.dreamchunk_set.all()[0].text)
         preview_text = dream.dreamchunk_set.all()[0].text
-        dreams.append(
-            {
-                "title": dream.title,
-                "date": dream.date_time.strftime("%Y.%m.%d %H:%M"),
-                "preview": preview_text,
-            }
-        )
+        dreams.append({'title': dream.title, 'date': dream.date_time.strftime(
+            '%Y.%m.%d %H:%M'), 'preview': preview_text})
         # previews.append(dream.dreamchunk_set.all()[0].text)
     context["dreams"] = dreams
     return render(request, "dreamcatcher/dream-list.html", context)
@@ -182,6 +180,25 @@ def get_image_action(request, id):
         raise Http404
 
     return HttpResponse(sequence.image, content_type=sequence.content_type)
+
+
+@login_required
+def view_related_dreams(request, id):
+    ds = get_object_or_404(DreamSequence, pk=id)
+    preview_text = ds.dreamchunk_set.all()[0].text
+    main_dream = {'title': ds.title, 'date': ds.date_time.strftime(
+        '%Y.%m.%d %H:%M'), 'preview': preview_text}
+
+    ids = get_similar_dream_ids(str(id), 5)
+
+    dreams = []
+    for id in ids:
+        dream = DreamSequence.objects.get(pk=id)
+        preview_text = dream.dreamchunk_set.all()[0].text
+        dreams.append({'title': dream.title, 'date': dream.date_time.strftime(
+            '%Y.%m.%d %H:%M'), 'preview': preview_text, "id": id})
+
+    return render(request, 'dreamcatcher/dream_display_similar.html', {"dreams": dreams, "dream": main_dream, "sequence": ds})
 
 
 def login_action(request):
