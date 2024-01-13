@@ -9,71 +9,106 @@ from django.contrib.auth import authenticate, login, logout
 from dreamcatcher.forms import LoginForm, RegisterForm
 
 from dreamcatcher.models import *
+from dreamcatcher.functions.get_dream_question import *
 
-HYDRATION = 10
+
+HYDRATION = 50
+
+from dreamcatcher.functions.get_dream_analysis import *
+
 
 # Create your views here.
 
 
 def landing(request):
-    return render(request, 'dreamcatcher/landing.html', {})
+    return render(request, "dreamcatcher/landing.html", {})
 
 
 @login_required
 def entry(request):
     context = {}
-    context['sequence_id'] = ''
-    return render(request, 'dreamcatcher/entry.html', context)
+    context["sequence_id"] = ""
+    return render(request, "dreamcatcher/entry.html", context)
 
 
 @login_required
 def process_entry(request):
     # Adds the new item to the database if the request parameter is present
-    if 'dream-text-input' not in request.POST or not request.POST['dream-text-input']:
+    if "dream-text-input" not in request.POST or not request.POST["dream-text-input"]:
         # If error, redirect to global stream with error message
         # TODO: display error
-        print('dream text not present')
-        return render(request, 'dreamcatcher/entry.html', {})
+        print("dream text not present")
+        return render(request, "dreamcatcher/entry.html", {})
 
-    dream_text = request.POST['dream-text-input']
+    dream_text = request.POST["dream-text-input"]
     word_len = len(dream_text.split())
 
     # Check if sequence was already created
-    if 'sequence-id' not in request.POST:
+    if "sequence-id" not in request.POST:
         # If error, redirect to global stream with error message
         # TODO: display error
-        print('sequence field not present')
-        return render(request, 'dreamcatcher/entry.html', {})
+        print("sequence field not present")
+        return render(request, "dreamcatcher/entry.html", {})
 
-    sequence_id = request.POST['sequence-id']
-    if sequence_id == '':
+    sequence_id = request.POST["sequence-id"]
+    if sequence_id == "":
         # Create initial sequence with one chunk
-        formatted_date = dateformat.format(timezone.now(), 'Y-m-d H:i:s')
-        dream_title = f'My Dream {formatted_date}'
-        sequence = DreamSequence(user=request.user, title=dream_title, hydration=word_len,
-                                 interpretation='', sentiment='', date_time=timezone.now())
+        formatted_date = dateformat.format(timezone.now(), "Y-m-d H:i:s")
+        dream_title = f"My Dream {formatted_date}"
+        sequence = DreamSequence(
+            user=request.user,
+            title=dream_title,
+            hydration=word_len,
+            interpretation="",
+            sentiment="",
+            date_time=timezone.now(),
+        )
         sequence.save()
     else:
         sequence = get_object_or_404(DreamSequence, pk=int(sequence_id))
         sequence.hydration += word_len
         sequence.save()
 
+    context = {}
+
+    complete_dream_text = ""
+    chunks = DreamChunk.objects.filter(sequence=sequence)
+    for chunk in chunks:
+        complete_dream_text += chunk.text + " "
+
+    dream_question = get_dream_question(complete_dream_text)
+    context["question"] = dream_question
+
     new_chunk = DreamChunk(
-        sequence=sequence, text=dream_text, image='', content_type='')
+        sequence=sequence, text=dream_text, image="", content_type=""
+    )
     new_chunk.save()
 
     # Check hydration
     if sequence.hydration < HYDRATION:
-        context = {}
-        context['sequence_id'] = str(sequence.id)
-        return render(request, 'dreamcatcher/entry.html', context)
+        context["sequence_id"] = str(sequence.id)
+
+        return render(request, "dreamcatcher/entry.html", context)
     else:
-        return redirect('home')
+        # Fetch all DreamChunk texts for this sequence
+        complete_dream_text = ""
+        chunks = DreamChunk.objects.filter(sequence=sequence)
+        for chunk in chunks:
+            complete_dream_text += chunk.text + " "
+
+        # Perform dream analysis
+        # Replace 'get_dream_analysis' with your actual analysis function
+        interpretation = get_dream_analysis(complete_dream_text)
+
+        sequence.interpretation = interpretation
+        sequence.save()
+
+        return redirect("home")
 
 
 @login_required
 def home(request):
-    return render(request, 'dreamcatcher/home.html', {})
+    return render(request, "dreamcatcher/home.html", {})
 
 @login_required
 def dream_list(request):
@@ -106,63 +141,66 @@ def login_action(request):
     context = {}
 
     # Just display the login form if this is a GET request.
-    if request.method == 'GET':
-        context['form'] = LoginForm()
-        return render(request, 'dreamcatcher/login.html', context)
-
+    if request.method == "GET":
+        context["form"] = LoginForm()
+        return render(request, "dreamcatcher/login.html", context)
     # Creates a bound form from the request POST parameters and makes the
     # form available in the request context dictionary.
     form = LoginForm(request.POST)
-    context['form'] = form
+    context["form"] = form
 
     # Validates the form
     if not form.is_valid():
-        return render(request, 'dreamcatcher/login.html', context)
+        return render(request, "dreamcatcher/login.html", context)
 
-    user = authenticate(username=form.cleaned_data['username'],
-                        password=form.cleaned_data['password'])
+    user = authenticate(
+        username=form.cleaned_data["username"], password=form.cleaned_data["password"]
+    )
     login(request, user)
 
-    return redirect(reverse('home'))
+    return redirect(reverse("home"))
 
 
 def register_action(request):
     context = {}
 
     # Just display the register form if this is a GET request.
-    if request.method == 'GET':
-        context['form'] = RegisterForm()
-        return render(request, 'dreamcatcher/register.html', context)
+    if request.method == "GET":
+        context["form"] = RegisterForm()
+        return render(request, "dreamcatcher/register.html", context)
 
     # Creates a bound form from the request POST parameters and makes the
     # form available in the request context dictionary.
     form = RegisterForm(request.POST)
-    context['form'] = form
+    context["form"] = form
 
     # Validates the form
     if not form.is_valid():
-        return render(request, 'dreamcatcher/register.html', context)
+        return render(request, "dreamcatcher/register.html", context)
 
     # Since the form data is valid, register and login the user
-    new_user = User.objects.create_user(username=form.cleaned_data['username'],
-                                        password=form.cleaned_data['password'],
-                                        email=form.cleaned_data['email'],
-                                        first_name=form.cleaned_data['first_name'],
-                                        last_name=form.cleaned_data['last_name'])
+    new_user = User.objects.create_user(
+        username=form.cleaned_data["username"],
+        password=form.cleaned_data["password"],
+        email=form.cleaned_data["email"],
+        first_name=form.cleaned_data["first_name"],
+        last_name=form.cleaned_data["last_name"],
+    )
     new_user.save()
 
     # Authenticate the user
-    new_user = authenticate(username=form.cleaned_data['username'],
-                            password=form.cleaned_data['password'])
+    new_user = authenticate(
+        username=form.cleaned_data["username"], password=form.cleaned_data["password"]
+    )
     login(request, new_user)
 
     # Create user profile
     new_profile = Profile(user=new_user, picture="", content_type="")
     new_profile.save()
 
-    return redirect(reverse('home'))
+    return redirect(reverse("home"))
 
 
 def logout_action(request):
     logout(request)
-    return redirect(reverse('login'))
+    return redirect(reverse("login"))
