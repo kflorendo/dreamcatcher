@@ -1,23 +1,23 @@
-{% extends "dreamcatcher/base.html" %}
-
-{% block content %}
+{% extends "dreamcatcher/base.html" %} {% block content %}
 <div class="post-items">
-
-    {% for dream in dreams %}
-    <div class="post-item">
-        <div class="post-header">
-            <div class="post-title">{{dream.title}}</div>
-            <div class="post-date">{{ dream.date_time }}</div>
-            {% load static %}
-            <a href="">
-                <img class="arrow-right" id="" src="{% static 'dreamcatcher/icons/arrow-right.png' %}">
-            </a>
-        </div>
-        <div class="post-text">{{ dream.preview }}</div>
-        <hr class="line solid">
+  {% for dream in dreams %}
+  <div class="post-item">
+    <div class="post-header">
+      <div class="post-title">{{dream.title}}</div>
+      <div class="post-date">{{ dream.date_time }}</div>
+      {% load static %}
+      <a href="{% url 'view-dream-sequence' dream.id %}">
+        <img
+          class="arrow-right"
+          id=""
+          src="{% static 'dreamcatcher/icons/arrow-right.png' %}"
+        />
+      </a>
     </div>
-    {% endfor %}
-
+    <div class="post-text">{{ dream.preview }}</div>
+    <hr class="line solid" />
+  </div>
+  {% endfor %}
 </div>
 
 {% endblock %}
