@@ -4,6 +4,7 @@
   <form id="entry-form" method="post" action="{% url 'process-entry' %}">
     <textarea name="dream-text-input" required id="dream-text-input" rows="10"/></textarea>
     <input type="hidden" name="sequence-id" value="{{sequence_id}}" />
+    {% csrf_token %}
   </form>
   <button class="dc-button" id="dream-text-submit" type="submit" form="entry-form">Enter</button>
 </div>
