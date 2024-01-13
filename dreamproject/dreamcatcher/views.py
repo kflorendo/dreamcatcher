@@ -10,6 +10,8 @@ from dreamcatcher.forms import LoginForm, RegisterForm
 
 from dreamcatcher.models import *
 
+from dreamcatcher.functions.dream_embeddings import embed_and_store_dream, get_similar_dream_ids
+
 HYDRATION = 10
 
 # Create your views here.
@@ -66,8 +68,19 @@ def process_entry(request):
     if sequence.hydration < HYDRATION:
         context = {}
         context['sequence_id'] = str(sequence.id)
+
         return render(request, 'dreamcatcher/entry.html', context)
     else:
+
+        # generate and store dream text
+        dcs = DreamChunk.objects.filter(sequence=sequence.id)
+        dream_text = ""
+        for dc in sorted(dcs, key=lambda dc: dc.id):
+            dream_text += dc.text
+
+        embed_and_store_dream(str(sequence.id), dream_text)
+        print("embedded dream", sequence.id)
+
         return redirect('home')
 
 
@@ -75,15 +88,18 @@ def process_entry(request):
 def home(request):
     return render(request, 'dreamcatcher/home.html', {})
 
+
 @login_required
 def dream_list(request):
     context = {}
-    dream_list = DreamSequence.objects.all().filter(user=request.user).order_by('-date_time')
+    dream_list = DreamSequence.objects.all().filter(
+        user=request.user).order_by('-date_time')
     dreams = []
     for dream in dream_list:
         # print(dream.dreamchunk_set.all()[0].text)
         preview_text = dream.dreamchunk_set.all()[0].text
-        dreams.append({'title': dream.title, 'date': dream.date_time.strftime('%Y.%m.%d %H:%M'), 'preview': preview_text})
+        dreams.append({'title': dream.title, 'date': dream.date_time.strftime(
+            '%Y.%m.%d %H:%M'), 'preview': preview_text})
         # previews.append(dream.dreamchunk_set.all()[0].text)
     context['dreams'] = dreams
     return render(request, 'dreamcatcher/dream-list.html', context)
@@ -100,6 +116,25 @@ def view_dream_sequence(request, id):
 def view_dream_analysis(request, id):
     ds = get_object_or_404(DreamSequence, pk=id)
     return render(request, 'dreamcatcher/dream_display_analysis.html', {"analysis": ds.interpretation})
+
+
+@login_required
+def view_related_dreams(request, id):
+    ds = get_object_or_404(DreamSequence, pk=id)
+    preview_text = ds.dreamchunk_set.all()[0].text
+    main_dream = {'title': ds.title, 'date': ds.date_time.strftime(
+        '%Y.%m.%d %H:%M'), 'preview': preview_text}
+
+    ids = get_similar_dream_ids(str(id), 5)
+
+    dreams = []
+    for id in ids:
+        dream = DreamSequence.objects.get(pk=id)
+        preview_text = dream.dreamchunk_set.all()[0].text
+        dreams.append({'title': dream.title, 'date': dream.date_time.strftime(
+            '%Y.%m.%d %H:%M'), 'preview': preview_text})
+
+    return render(request, 'dreamcatcher/dream_display_similar.html', {"dreams": dreams, "dream": main_dream})
 
 
 def login_action(request):
