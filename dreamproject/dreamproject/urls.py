@@ -29,8 +29,9 @@ urlpatterns = [
     path('process-entry', views.process_entry, name='process-entry'),
     path('dream-list', views.dream_list, name='dream-list'),
     path('dream/<int:id>', views.view_dream_sequence, name='view-dream-sequence'),
-    path('dream/<int:id>/analysis', views.view_dream_analysis,
-         name='view-dream-analysis'),
     path('dream/<int:id>/similar', views.view_related_dreams,
-         name='view-dream-similar')
+         name='view-dream-similar'),
+    path('analysis/<int:id>', views.view_dream_analysis,
+         name='view-dream-analysis'),
+    path('dream-image/<int:id>', views.get_image_action, name='get-image')
 ]

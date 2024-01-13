@@ -9,7 +9,6 @@ from PIL import Image
 load_dotenv()
 HF_KEY = os.getenv("HF_KEY")
 API_URL = "https://api-inference.huggingface.co/models/SimianLuo/LCM_Dreamshaper_v7"
-print(HF_KEY)
 headers = {"Authorization": f"Bearer {HF_KEY}"}
 
 

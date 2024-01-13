@@ -1,0 +1,48 @@
+.dream-display {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.dream-display .dream-nav {
+    font-family: monospace;
+    margin-bottom: 24px;
+}
+
+.dream-display .dream-nav .dream-nav-link {
+    color: #cbcbcb;
+    text-decoration: none; 
+}
+.dream-display .dream-nav .dream-nav-link:visited { 
+    text-decoration: none; 
+} 
+.dream-display .dream-nav .dream-nav-link:hover { 
+    color: #fff;
+    text-decoration: none; 
+} 
+.dream-display .dream-nav .dream-nav-link:active { 
+    text-decoration: none; 
+}
+.dream-display .dream-nav .dream-nav-link.selected {
+    color: #fff;
+    font-weight: bold;
+}
+
+.dream-display .dream-title {
+    font-family: "Didot-Italic", Helvetica;
+    font-weight: 400;
+    font-style: italic;
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 24px;
+    /* letter-spacing: 0; */
+    /* line-height: normal; */
+  }
+
+  .dream-display .dream-text {
+    text-align: center;
+    font-family: monospace;
+    margin-bottom: 20px;
+  }

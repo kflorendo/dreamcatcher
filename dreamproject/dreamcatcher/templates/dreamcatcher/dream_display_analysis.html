@@ -1,6 +1,13 @@
 {% extends "dreamcatcher/base.html" %} {% block content %}
-<div>
-  Here is some analysis:
-  <p>{{analysis}}</p>
+<div class="dream-display">
+  <div class="dream-title">{{sequence.title}}</div>
+  <div class="dream-nav">
+    <a class="dream-nav-link" href="{% url 'view-dream-sequence' sequence.pk %}">Dream</a>
+    <span>|</span>
+    <a class="dream-nav-link selected" href="{% url 'view-dream-analysis' sequence.pk %}">Analysis</a>
+    <span>|</span>
+    <a class="dream-nav-link" href="{% url 'view-dream-similar' sequence.pk %}">Similar</a>
+  </div>
+  <p>{{sequence.analysis}}</p>
 </div>
 {% endblock %}

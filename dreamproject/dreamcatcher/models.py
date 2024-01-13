@@ -9,6 +9,7 @@ class DreamSequence(models.Model):
     hydration = models.IntegerField(default=0)
     interpretation = models.TextField()
     sentiment = models.CharField(max_length=50)
+    image = models.FileField(blank=True)
 
 
 class DreamChunk(models.Model):

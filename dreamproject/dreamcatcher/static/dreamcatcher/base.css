@@ -11,6 +11,10 @@
   .base .content {
     flex: 1 1 auto;
     overflow-y: auto;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
   
   .base .div {
