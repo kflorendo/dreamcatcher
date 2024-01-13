@@ -164,6 +164,15 @@ def view_dream_analysis(request, id):
     ds = get_object_or_404(DreamSequence, pk=id)
     return render(request, 'dreamcatcher/dream_display_analysis.html', {"sequence": ds})
 
+@login_required
+def get_image_action(request, id):
+    sequence = get_object_or_404(DreamSequence, id=id)
+
+    # Checks if picture was deleted from the DB
+    if not sequence.image:
+        raise Http404
+
+    return HttpResponse(sequence.image, content_type=sequence.content_type)
 
 def login_action(request):
     context = {}

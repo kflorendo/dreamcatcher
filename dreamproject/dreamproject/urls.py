@@ -30,5 +30,6 @@ urlpatterns = [
     path('dream-list', views.dream_list, name='dream-list'),
     path('dream/<int:id>', views.view_dream_sequence, name='view-dream-sequence'),
     path('analysis/<int:id>', views.view_dream_analysis,
-         name='view-dream-analysis')
+         name='view-dream-analysis'),
+    path('dream-image/<int:id>', views.get_image_action, name='get-image')
 ]
