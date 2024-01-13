@@ -5,6 +5,7 @@ class DreamSequence(models.Model):
     user = models.ForeignKey(User, default=None, on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
     date_time = models.DateTimeField()
+    hydration = models.IntegerField(default=0)
     interpretation = models.CharField(max_length=500)
     sentiment = models.CharField(max_length=50)
 
