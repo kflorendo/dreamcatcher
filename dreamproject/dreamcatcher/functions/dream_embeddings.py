@@ -33,7 +33,7 @@ def get_similar_dream_ids(dream_id, k):
     embedding = res["vectors"][dream_id]["values"]
 
     res = index.query(
-        top_k=k+1,
+        top_k=k+1,  # we will remove one element (ourself)
         vector=embedding,
     )
 
