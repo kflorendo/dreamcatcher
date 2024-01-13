@@ -1,9 +1,7 @@
-{% extends "dreamcatcher/base.html" %} 
-
-{% block content %}
+{% extends "dreamcatcher/base.html" %} {% block content %}
 <div>
-    {% for chunk in dreamchunks %}
-    <p>{{chunk.text}}</p>
-    {% endfor %}
+  {% for chunk in dreamchunks %} 
+  <p>{{chunk.text}}</p>
+  {% endfor %}
 </div>
 {% endblock %}

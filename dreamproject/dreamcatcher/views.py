@@ -78,9 +78,15 @@ def home(request):
 
 @login_required
 def view_dream_sequence(request, id):
-    ds = DreamSequence.objects.get(pk=id)
+    ds = get_object_or_404(DreamSequence, pk=id)
     dreamchunks = DreamChunk.objects.filter(sequence=id)
-    return render(request, 'dreamcatcher/dream_display_seq.html', {dreamchunks: dreamchunks})
+    return render(request, 'dreamcatcher/dream_display_seq.html', {"dreamchunks": dreamchunks})
+
+
+@login_required
+def view_dream_analysis(request, id):
+    ds = get_object_or_404(DreamSequence, pk=id)
+    return render(request, 'dreamcatcher/dream_display_analysis.html', {"analysis": ds.interpretation})
 
 
 def login_action(request):

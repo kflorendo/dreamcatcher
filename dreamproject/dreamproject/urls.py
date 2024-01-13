@@ -27,5 +27,7 @@ urlpatterns = [
     path('register', views.register_action, name='register'),
     path('logout', views.logout_action, name='logout'),
     path('process-entry', views.process_entry, name='process-entry'),
-    path('dream/<slug:id>', views.view_dream_sequence, name='view-dream-sequence')
+    path('dream/<int:id>', views.view_dream_sequence, name='view-dream-sequence'),
+    path('dream/<int:id>/analysis', views.view_dream_analysis,
+         name='view-dream-analysis')
 ]
