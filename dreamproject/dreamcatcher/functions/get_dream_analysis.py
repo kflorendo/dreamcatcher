@@ -1,5 +1,21 @@
+import openai
 import json
 
 
 def get_dream_analysis(dream_text: str):
-    return "Test dream analysis"
+    api_key = "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"
+    openai.api_key = api_key
+
+    prompt = f"Interpret this dream: {dream_text}"
+
+    # Use GPT-3.5 to get the start time
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": prompt},
+        ],
+    )
+
+    response_string = response.choices[0].message.content
+
+    return response_string
