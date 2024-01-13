@@ -20,6 +20,9 @@ from dreamcatcher import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.landing),
-    path('entry', views.entry)
+    path('', views.landing, name='landing'),
+    path('home', views.home, name='home'),
+    path('entry', views.entry, name='entry'),
+    path('login', views.login_action, name='login'),
+    path('register', views.register_action, name='register')
 ]

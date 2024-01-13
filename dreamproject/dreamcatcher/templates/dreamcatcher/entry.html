@@ -1,5 +1,9 @@
 {% extends "dreamcatcher/base.html" %}
 
 {% block content %}
-
+<form method="post" action="">
+  <input type="text" name="dream-text-input" required id="dream-text-input">
+  {% csrf_token %}
+  <button class="btn" id="dream-text-submit" type="submit">Enter</button>
+</form>
 {% endblock %}
