@@ -1,17 +1,11 @@
 .landing {
     background-color: #212121;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
-  }
-  
-  .landing .div {
-    background-color: #212121;
-    width: 393px;
-    height: 852px;
-    position: relative;
   }
   
   .landing .frame {
@@ -25,7 +19,7 @@
     left: 73px;
   }
   
-  .landing .DREAM-CATCHER {
+  .landing .app-title {
     position: relative;
     width: fit-content;
     margin-top: -1px;
@@ -37,6 +31,7 @@
     text-align: center;
     letter-spacing: 0;
     line-height: normal;
+    padding-bottom: 24px;
   }
   
   .landing .left-button {

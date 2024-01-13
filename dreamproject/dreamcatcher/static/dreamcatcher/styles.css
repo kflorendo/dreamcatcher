@@ -19,3 +19,8 @@ button.dc-button {
     color: white;
     font-family: monospace;
   }
+
+  button.dc-button:hover {
+    cursor: pointer;
+    background-color: #555555;
+  }
