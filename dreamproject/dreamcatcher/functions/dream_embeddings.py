@@ -30,6 +30,10 @@ def embed_and_store_dream(dream_id, dream_str):
 
 def get_similar_dream_ids(dream_id, k):
     res = index.fetch(ids=[dream_id])
+
+    if dream_id not in res["vectors"]:
+        return []
+
     embedding = res["vectors"][dream_id]["values"]
 
     res = index.query(

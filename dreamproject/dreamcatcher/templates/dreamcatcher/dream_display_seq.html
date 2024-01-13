@@ -8,7 +8,7 @@
     <span>|</span>
     <a class="dream-nav-link" href="{% url 'view-dream-similar' sequence.pk %}">Similar</a>
   </div>
-  <img src="{% url 'get-image' sequence.pk %}">
+  <img src="{% url 'get-image' sequence.pk %}" width="250em" height="250em" style="padding-bottom: 10px">
   {% for chunk in dreamchunks %} 
   <div class="dream-text">{{chunk.text}}</div>
   {% endfor %}

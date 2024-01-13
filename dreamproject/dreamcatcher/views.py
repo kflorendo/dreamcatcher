@@ -148,7 +148,7 @@ def dream_list(request):
         # print(dream.dreamchunk_set.all()[0].text)
         preview_text = dream.dreamchunk_set.all()[0].text
         dreams.append({'title': dream.title, 'date': dream.date_time.strftime(
-            '%Y.%m.%d %H:%M'), 'preview': preview_text})
+            '%Y.%m.%d %H:%M'), 'preview': preview_text, "id": dream.id})
         # previews.append(dream.dreamchunk_set.all()[0].text)
     context["dreams"] = dreams
     return render(request, "dreamcatcher/dream-list.html", context)
@@ -190,6 +190,7 @@ def view_related_dreams(request, id):
         '%Y.%m.%d %H:%M'), 'preview': preview_text}
 
     ids = get_similar_dream_ids(str(id), 5)
+    print("related dreams", ids)
 
     dreams = []
     for id in ids:
