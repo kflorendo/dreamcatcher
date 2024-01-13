@@ -1,9 +1,10 @@
 {% extends "dreamcatcher/base.html" %} {% block content %}
-<form method="post" action="{% url 'process-entry' %}">
-  <p>{{question}}</p>
-  <input type="text" name="dream-text-input" required id="dream-text-input" />
-  <input type="hidden" name="sequence-id" value="{{sequence_id}}" />
-  {% csrf_token %}
-  <button class="btn" id="dream-text-submit" type="submit">Enter</button>
-</form>
+<div class="dream-entry-container">
+  <div class="dream-entry-question">{{question}}</div>
+  <form id="entry-form" method="post" action="{% url 'process-entry' %}">
+    <textarea name="dream-text-input" required id="dream-text-input" rows="10"/></textarea>
+    <input type="hidden" name="sequence-id" value="{{sequence_id}}" />
+  </form>
+  <button class="dc-button" id="dream-text-submit" type="submit" form="entry-form">Enter</button>
+</div>
 {% endblock %}

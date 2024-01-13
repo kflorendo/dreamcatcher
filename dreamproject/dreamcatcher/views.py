@@ -34,12 +34,16 @@ def landing(request):
 @login_required
 def entry(request):
     context = {}
+    context['question'] = 'About last night...'
     context["sequence_id"] = ""
     return render(request, "dreamcatcher/entry.html", context)
 
 
 @login_required
 def process_entry(request):
+    context = {}
+    context['question'] = 'About last night...'
+
     # Adds the new item to the database if the request parameter is present
     if "dream-text-input" not in request.POST or not request.POST["dream-text-input"]:
         # If error, redirect to global stream with error message
@@ -55,7 +59,7 @@ def process_entry(request):
         # If error, redirect to global stream with error message
         # TODO: display error
         print("sequence field not present")
-        return render(request, "dreamcatcher/entry.html", {})
+        return render(request, "dreamcatcher/entry.html", context)
 
     sequence_id = request.POST["sequence-id"]
     if sequence_id == "":

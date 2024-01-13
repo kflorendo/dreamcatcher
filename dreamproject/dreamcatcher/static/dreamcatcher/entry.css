@@ -1,0 +1,21 @@
+.dream-entry-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.dream-entry-container textarea#dream-text-input {
+    width: 300px;
+    height: 150px;
+    background-color: #000;
+    border-color: #fff;
+    margin-bottom: 24px;
+}
+
+.dream-entry-container .dream-entry-question {
+    font-family: monospace;
+    font-size: 18px;
+    padding-bottom: 24px;
+}
