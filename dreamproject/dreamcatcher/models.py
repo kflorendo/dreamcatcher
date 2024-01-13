@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class DreamSequence(models.Model):
     user = models.ForeignKey(User, default=None, on_delete=models.PROTECT)
