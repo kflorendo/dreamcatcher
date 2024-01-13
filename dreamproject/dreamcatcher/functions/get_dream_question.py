@@ -1,14 +1,18 @@
 import openai
 import json
+from dotenv import load_dotenv
+import os
 
 
 def get_dream_question(dream_text: str):
-    api_key = "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"
-    openai.api_key = api_key
+    load_dotenv()
+    OPENAI_KEY = os.getenv('OPENAI_KEY')
+    openai.api_key = OPENAI_KEY
 
     prompt = f"Ask a question to learn more about this dream: {dream_text}"
 
-    getNextQuestions = True  # flag to ensure question is clean and doesnt mention anything about the chatbot
+    # flag to ensure question is clean and doesnt mention anything about the chatbot
+    getNextQuestions = True
 
     # Use GPT-3.5 to get the start time
     while getNextQuestions:
