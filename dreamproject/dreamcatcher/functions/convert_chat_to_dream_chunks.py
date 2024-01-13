@@ -1,17 +1,19 @@
 import openai
 import json
+from dotenv import load_dotenv
 
 
 # dream_chat should be an array sequnce alteranting beween
 # user and chatbot conversations
 # list[0] is user, list[1] is chatbot, list[2] is user...
 def get_dream_question(dream_chat: list[str]):
+    load_dotenv()
+    OPENAI_KEY = os.getenv("OPENAI_KEY")
+    openai.api_key = OPENAI_KEY
+
     # parse only the user text
     dream_content = dream_chat[::2]
     dream_string = "\n".join(dream_content)
-
-    api_key = "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"
-    openai.api_key = api_key
 
     prompt = (
         f"Reformat this dream so its in paragraph format and more clean: {dream_string}"
