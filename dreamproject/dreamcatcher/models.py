@@ -1,3 +1,21 @@
 from django.db import models
 
-# Create your models here.
+class DreamSequence(models.Model):
+    user = models.ForeignKey(User, default=None, on_delete=models.PROTECT)
+    title = models.CharField(max_length=100)
+    date_time = models.DateTimeField()
+    interpretation = models.CharField(max_length=500)
+    sentiment = models.CharField(max_length=50)
+
+class DreamChunk(models.Model):
+    sequence = models.ForeignKey(DreamSequence, on_delete=models.PROTECT)
+    text = models.CharField(max_length=500)
+    image = models.FileField(blank=True)
+    content_type = models.CharField(max_length=50)
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.PROTECT)
+    context = models.CharField(max_length=500)
+    picture = models.FileField(blank=True)
+    content_type = models.CharField(max_length=50)
+    following = models.ManyToManyField(User, related_name="following")
