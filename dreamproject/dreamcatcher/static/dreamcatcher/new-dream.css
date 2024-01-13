@@ -1,0 +1,209 @@
+.new-dream {
+    background-color: #131313;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .new-dream .div {
+    background-color: #131313;
+    overflow: hidden;
+    width: 393px;
+    height: 852px;
+    position: relative;
+  }
+  
+  .new-dream .overlap-group {
+    position: absolute;
+    width: 393px;
+    height: 60px;
+    top: 0;
+    left: 0;
+    background-color: #111111;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-color: #ffffff;
+  }
+  
+  .new-dream .text-wrapper {
+    position: absolute;
+    top: 18px;
+    left: 157px;
+    font-family: "Didot-Italic", Helvetica;
+    font-weight: 400;
+    font-style: italic;
+    color: #ffffff;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .new-dream .p {
+    position: absolute;
+    width: 292px;
+    height: 79px;
+    top: 136px;
+    left: 48px;
+    font-family: "Inconsolata-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 24px;
+  }
+  
+  .new-dream .mobile-nav {
+    position: absolute;
+    width: 394px;
+    height: 69px;
+    top: 783px;
+    left: 0;
+    background-color: var(--surface);
+  }
+  
+  .new-dream .single-tab {
+    position: absolute;
+    width: 131px;
+    height: 69px;
+    top: 0;
+    left: 131px;
+    background-color: #231f20;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-color: var(--border-subtle);
+  }
+  
+  .new-dream .icon-and-text {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    position: relative;
+    top: 15px;
+    left: 47px;
+  }
+  
+  .new-dream .img {
+    position: relative;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .new-dream .text {
+    position: relative;
+    width: fit-content;
+    font-family: "Inconsolata-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 14px;
+    white-space: nowrap;
+  }
+  
+  .new-dream .icon-and-text-wrapper {
+    left: 0;
+    border-color: #bd9eff;
+    position: absolute;
+    width: 131px;
+    height: 69px;
+    top: 0;
+    background-color: #231f20;
+    border-top-width: 2px;
+    border-top-style: solid;
+  }
+  
+  .new-dream .icon-and-text-2 {
+    flex-direction: column;
+    gap: 2px;
+    left: 53px;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    top: 15px;
+  }
+  
+  .new-dream .text-2 {
+    color: #bd9eff;
+    font-size: 12px;
+    text-align: center;
+    line-height: 14px;
+    position: relative;
+    width: fit-content;
+    font-family: "Inconsolata-Regular", Helvetica;
+    font-weight: 400;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+  
+  .new-dream .div-wrapper {
+    left: 263px;
+    border-color: var(--border-subtle);
+    position: absolute;
+    width: 131px;
+    height: 69px;
+    top: 0;
+    background-color: #231f20;
+    border-top-width: 2px;
+    border-top-style: solid;
+  }
+  
+  .new-dream .icon-and-text-3 {
+    flex-direction: column;
+    gap: 2px;
+    left: 44px;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    top: 15px;
+  }
+  
+  .new-dream .rectangle {
+    position: absolute;
+    width: 292px;
+    height: 183px;
+    top: 243px;
+    left: 48px;
+    border: 1px solid;
+    border-color: #ffffff;
+  }
+  
+  .new-dream .left-button {
+    position: absolute;
+    width: 144px;
+    height: 48px;
+    top: 453px;
+    left: 125px;
+    background-color: #444444;
+    border-radius: 4px 0px 0px 4px;
+    overflow: hidden;
+    border: 2px solid;
+    border-color: #383838;
+  }
+  
+  .new-dream .icon-and-text-4 {
+    gap: 8px;
+    left: 52px;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    top: 15px;
+  }
+  
+  .new-dream .text-3 {
+    margin-top: -1px;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 18px;
+    position: relative;
+    width: fit-content;
+    font-family: "Inconsolata-Regular", Helvetica;
+    font-weight: 400;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+  
