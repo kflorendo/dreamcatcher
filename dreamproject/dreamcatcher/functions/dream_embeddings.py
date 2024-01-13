@@ -11,7 +11,7 @@ MODEL = "text-embedding-ada-002"
 PINECONE_INDEX = "dreams"
 
 pinecone.init(
-    api_key="d98e9f6a-d543-4484-9a4f-721e3b9a6b73", environment="gcp-starter"
+    api_key=str(os.getenv('PINECONE_KEY')), environment="gcp-starter"
 )
 index = pinecone.Index(PINECONE_INDEX)
 
