@@ -9,6 +9,9 @@ from django.contrib.auth import authenticate, login, logout
 
 from dreamcatcher.forms import LoginForm, RegisterForm
 
+from django.http import HttpResponse
+
+
 from dreamcatcher.models import *
 from dreamcatcher.functions.get_dream_question import *
 from dreamcatcher.functions.generate_dream_image import *
@@ -120,6 +123,7 @@ def process_entry(request):
 
         # Save the image to the sequence model
         sequence.image.save("dream_image.jpg", image_file, save=True)
+        # sequence.content_type = ssequence.image.content_type
         sequence.save()
 
         return redirect("home")
@@ -156,13 +160,18 @@ def dream_list(request):
 def view_dream_sequence(request, id):
     ds = get_object_or_404(DreamSequence, pk=id)
     dreamchunks = DreamChunk.objects.filter(sequence=id)
-    return render(request, 'dreamcatcher/dream_display_seq.html', {"sequence": ds, "dreamchunks": dreamchunks})
+    return render(
+        request,
+        "dreamcatcher/dream_display_seq.html",
+        {"sequence": ds, "dreamchunks": dreamchunks},
+    )
 
 
 @login_required
 def view_dream_analysis(request, id):
     ds = get_object_or_404(DreamSequence, pk=id)
-    return render(request, 'dreamcatcher/dream_display_analysis.html', {"sequence": ds})
+    return render(request, "dreamcatcher/dream_display_analysis.html", {"sequence": ds})
+
 
 @login_required
 def get_image_action(request, id):
@@ -173,6 +182,7 @@ def get_image_action(request, id):
         raise Http404
 
     return HttpResponse(sequence.image, content_type=sequence.content_type)
+
 
 def login_action(request):
     context = {}
