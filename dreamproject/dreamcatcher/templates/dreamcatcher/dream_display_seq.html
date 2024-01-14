@@ -1,4 +1,12 @@
 {% extends "dreamcatcher/base.html" %} {% block content %}
+{% load static %}
+<a href="{% url 'dream-list' %}">
+  <img
+    class="arrow-left"
+    id=""
+    src="{% static 'dreamcatcher/icons/arrow-left.png' %}"
+  />
+</a>
 <div class="dream-display">
   <div class="dream-title">{{sequence.title}}</div>
   <div class="dream-nav">
