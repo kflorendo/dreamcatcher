@@ -22,7 +22,7 @@ from django.core.files.base import ContentFile
 
 from dreamcatcher.functions.dream_embeddings import embed_and_store_dream, get_similar_dream_ids
 
-HYDRATION = 10
+HYDRATION = 20
 
 
 # Create your views here.
