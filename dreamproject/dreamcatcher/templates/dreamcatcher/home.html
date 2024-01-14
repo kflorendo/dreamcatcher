@@ -1,5 +1,10 @@
 {% extends "dreamcatcher/base.html" %}
 
 {% block content %}
-<p>home</p>
+<div class="home-container">
+    <div class="floating">
+        <div class="cloud">☁︎</div>
+    </div>
+    <a href="{% url 'entry' %}"><button class="dc-button">Record a Dream</button></a>
+</div>
 {% endblock %}

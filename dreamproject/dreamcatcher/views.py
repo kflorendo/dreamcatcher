@@ -143,6 +143,11 @@ def home(request):
 
 
 @login_required
+def profile(request):
+    return render(request, "dreamcatcher/profile.html", {})
+
+
+@login_required
 def dream_list(request):
     context = {}
     dream_list = DreamSequence.objects.all().filter(

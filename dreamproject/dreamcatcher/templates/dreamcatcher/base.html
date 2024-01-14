@@ -9,13 +9,15 @@
     <link href="{% static 'dreamcatcher/posts.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'dreamcatcher/dream.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'dreamcatcher/entry.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'dreamcatcher/home.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'dreamcatcher/profile.css' %}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
     <div class="base">
         <div class="div">
             <div class="header">
-                <div class="text-wrapper">DREAMCATCHER</div>
+                <div class="text-wrapper">☁︎ DREAMCATCHER</div>
             </div>
             <div class="content">
                 {% block content %}
@@ -35,7 +37,7 @@
                         <div class="text">Dreams</div>
                     </div>
                 </a>
-                <a class="single-tab" href="{% url 'home' %}">
+                <a class="single-tab" href="{% url 'profile' %}">
                     <div class="icon-and-text">
                         <img class="nav-icon" src="{% static 'dreamcatcher/icons/profile.png' %}" />
                         <div class="text">Profile</div>

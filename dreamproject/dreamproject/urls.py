@@ -33,5 +33,6 @@ urlpatterns = [
          name='view-dream-similar'),
     path('analysis/<int:id>', views.view_dream_analysis,
          name='view-dream-analysis'),
-    path('dream-image/<int:id>', views.get_image_action, name='get-image')
+    path('dream-image/<int:id>', views.get_image_action, name='get-image'),
+    path('profile', views.profile, name='profile')
 ]
