@@ -77,17 +77,44 @@
     background-color: var(--surface);
     display: flex;
   }
+
+  .base .nav-icon {
+    margin-bottom: 5px;
+  }
   
   .base .single-tab {
     flex-grow: 1;
-    background-color: #231f20;
+    background-color: #111111;
     border-top-width: 2px;
     border-top-style: solid;
     border-color: var(--border-subtle);
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #fff;
+    text-decoration: none; 
   }
+
+  .base .single-tab:hover {
+    background-color: #222222;
+    cursor: pointer;
+  }
+
+  .dream-display .dream-nav .dream-nav-link {
+    color: #cbcbcb;
+    text-decoration: none; 
+}
+.dream-display .dream-nav .dream-nav-link:visited { 
+  color: #fff;  
+  text-decoration: none; 
+} 
+.dream-display .dream-nav .dream-nav-link:hover { 
+    color: #fff;
+    text-decoration: none; 
+} 
+.dream-display .dream-nav .dream-nav-link:active { 
+    text-decoration: none; 
+}
   
   .base .icon-and-text {
     display: inline-flex;

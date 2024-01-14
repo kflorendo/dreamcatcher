@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8" />
     {% load static %}
     <link href="{% static 'dreamcatcher/base.css' %}" rel="stylesheet" type="text/css">
@@ -8,36 +9,42 @@
     <link href="{% static 'dreamcatcher/posts.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'dreamcatcher/dream.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'dreamcatcher/entry.css' %}" rel="stylesheet" type="text/css">
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="base">
-      <div class="div">
-        <div class="header"><div class="text-wrapper">DREAMCATCHER</div></div>
-        <div class="content">
-            {% block content %}
-            {% endblock %}
+        <div class="div">
+            <div class="header">
+                <div class="text-wrapper">DREAMCATCHER</div>
+            </div>
+            <div class="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <div class="nav">
+                <a class="single-tab" href="{% url 'home' %}">
+                    <div class="icon-and-text">
+                        <!-- <img class="img" src="img/home.svg" /> -->
+                        <img class="nav-icon" src="{% static 'dreamcatcher/icons/home.png' %}" />
+                        <div class="text-2">Home</div>
+                    </div>
+                </a>
+                <a class="single-tab" href="{% url 'dream-list' %}">
+                    <div class="icon-and-text">
+                        <img class="nav-icon" src="{% static 'dreamcatcher/icons/cloud.png' %}" />
+                        <div class="text">Dreams</div>
+                    </div>
+                </a>
+                <a class="single-tab" href="{% url 'home' %}">
+                    <div class="icon-and-text">
+                        <img class="nav-icon" src="{% static 'dreamcatcher/icons/profile.png' %}" />
+                        <div class="text">Profile</div>
+                    </div>
+                </a>
+            </div>
         </div>
-        <div class="nav">
-        <div class="single-tab">
-            <div class="icon-and-text">
-                <!-- <img class="img" src="img/home.svg" /> -->
-                <div class="text-2">Home</div>
-            </div>
-            </div>
-          <div class="single-tab">
-            <div class="icon-and-text">
-              <!-- <img class="img" src="img/top-icon.svg" /> -->
-              <div class="text">Dreams</div>
-            </div>
-          </div>
-          <div class="single-tab">
-            <div class="icon-and-text">
-              <!-- <img class="img" src="img/image.svg" /> -->
-              <div class="text">Profile</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </body>
+    </div>
+</body>
+
 </html>
